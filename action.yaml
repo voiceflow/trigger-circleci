@@ -1,0 +1,26 @@
+name: Trigger CircleCI Pipeline
+description: Trigger the CircleCI pipeline for a given branch as if new changes had been pushed to it
+branding:
+  icon: share-2
+  color: gray-dark
+
+inputs:
+  circleci-token:
+    required: true
+    description: The access token used to trigger the pipeline
+  repository:
+    required: true
+    description: The repository to trigger the pipeline for
+    default: ${{ github.repository }}
+  branch:
+    required: true
+    description: The branch to trigger the pipeline for
+    default: ${{ github.head_ref }}
+
+runs:
+  using: composite
+  steps:
+    - name: Trigger CircleCI Pipeline
+      shell: bash
+      run: |
+          curl -u ${{ inputs.circleci-token }}: -X POST --header 'Content-Type: application/json'  -d "{\"branch\":\"${{ inputs.branch }}\"}"  https://circleci.com/api/v1.1/project/github/${{ inputs.repository }}/build
