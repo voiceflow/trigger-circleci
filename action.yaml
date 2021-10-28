@@ -25,6 +25,9 @@ runs:
   using: composite
   steps:
     - name: Trigger CircleCI Pipeline
-      shell: bash
-      run: |
-        curl -u ${{ inputs.circleci-token }}: -X POST --header 'Content-Type: application/json'  -d "{\"branch\":\"${{ inputs.branch }}\", \"parameters\": ${{ inputs.parameters }}}"  https://circleci.com/api/v2/project/github/${{ inputs.repository }}/pipeline
+      uses: promiseofcake/circleci-trigger-action@v1.2.2
+      with:
+        user-token: ${{ inputs.circleci-token }}
+        project-slug: ${{ inputs.repository }}
+        branch: ${{ inputs.branch }}
+        payload: ${{ inputs.parameters }}
