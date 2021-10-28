@@ -25,7 +25,7 @@ runs:
   using: composite
   steps:
     - name: Trigger CircleCI Pipeline
-      uses: promiseofcake/circleci-trigger-action@v1.2.2
+      uses: promiseofcake/circleci-trigger-action@v.1.2.2
       with:
         user-token: ${{ inputs.circleci-token }}
         project-slug: ${{ inputs.repository }}
