@@ -16,6 +16,10 @@ inputs:
     required: true
     description: The branch to trigger the pipeline for
     default: ${{ github.head_ref }}
+  parameters:
+    required: true
+    description: The pipeline parameters to pass to the triggered pipeline (JSON)
+    default: '{}'
 
 runs:
   using: composite
@@ -23,4 +27,4 @@ runs:
     - name: Trigger CircleCI Pipeline
       shell: bash
       run: |
-          curl -u ${{ inputs.circleci-token }}: -X POST --header 'Content-Type: application/json'  -d "{\"branch\":\"${{ inputs.branch }}\"}"  https://circleci.com/api/v1.1/project/github/${{ inputs.repository }}/build
+        curl -u ${{ inputs.circleci-token }}: -X POST --header 'Content-Type: application/json'  -d "{\"branch\":\"${{ inputs.branch }}\", \"parameters\": ${{ inputs.parameters }}}"  https://circleci.com/api/v2/project/github/${{ inputs.repository }}/pipeline

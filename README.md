@@ -9,6 +9,7 @@ Triggers a CircleCI pipeline run for the given branch as if new changes had been
 - `circleci-token`: The CircleCI token to allow authenticated API calls
 - `repository`: The repository to trigger the pipeline for (defaults to current repository)
 - `branch`: The branch to trigger the pipeline for (defaults to current branch for pull requests)
+- `parameters`: The pipeline parameters to be passed to the triggered pipeline, formatted as a JSON object
 
 ### Example Workflow
 
@@ -27,6 +28,7 @@ jobs:
         uses: voiceflow/trigger-circleci@latest
         with:
           circleci-token: ${{ secrets.CIRCLECI_TOKEN }}
+          parameters: '{ "build-frontend": true }'
 ```
 
 ## License
